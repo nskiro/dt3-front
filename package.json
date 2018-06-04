@@ -1,0 +1,37 @@
+{
+  "name": "ducthanh3",
+  "version": "0.1.0",
+  "license" : "(ISC OR GPL-3.0)",
+  "dependencies": {
+    "antd": "^3.6.1",
+    "axios": "^0.18.0",
+    "immutability-helper": "^2.7.0",
+    "jsonwebtoken": "^8.2.1",
+    "moment": "^2.22.2",
+    "lodash": "^4.17.10",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-data-export": "^0.4.2",
+    "react-data-grid": "^4.0.7",
+    "react-data-grid-addons": "^4.0.8",
+    "react-dom": "^16.3.2",
+    "react-fontawesome": "^1.6.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.7.0",
+    "react-app-rewire-less": "^2.1.1",
+    "react-app-rewired": "^1.5.0"
+  }
+}

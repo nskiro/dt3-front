@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import ExcelFileSheet from 'react-data-export';
 
-import { Radio, AutoComplete, Input, InputNumber, Form, Modal, Button, Tabs, DatePicker, Select } from 'antd';
+import {AutoComplete, Input, InputNumber, Form, Modal, Button, Tabs, DatePicker, Select } from 'antd';
 import ReactDataGrid from 'react-data-grid';
 
 import RowRenderer from './rowrenderer';
@@ -12,7 +12,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import axios from '../../../../axiosInst';
 
-const RadioGroup = Radio.Group;
+//const RadioGroup = Radio.Group;
 const Option = Select.Option;
 
 const FormItem = Form.Item;
@@ -21,7 +21,7 @@ const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
 const { Editors } = require('react-data-grid-addons');
 const { ExcelFile, ExcelSheet } = ExcelFileSheet;
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+//const { WeekPicker } = DatePicker;
 const { AutoComplete: AutoCompleteEditor } = Editors;
 const { DateLongFormatter, DateShortFormatter } = DateFormatter;
 
@@ -229,11 +229,11 @@ class FormTransDetail extends Component {
     }
 
     render() {
-        const { visible, onCancel, onCreate, form } = this.props;
+        const { visible, onCancel, onCreate } = this.props;
         const { getFieldDecorator } = this.props.form;
         let fabric_type = '';
         let fabric_color = '';
-        if (this.props.data.data != undefined) {
+        if (this.props.data.data !== undefined) {
             fabric_type = this.props.data.data.fabric_type;
             fabric_color = this.props.data.data.fabric_color;
         }
@@ -500,7 +500,7 @@ class Inventory extends Component {
         });
     }
     handleCreate = (e) => {
-        const form = this.formRef.props.form;
+       // const form = this.formRef.props.form;
         this.setState({
             showdetail: false,
         });
@@ -620,12 +620,16 @@ class Imports extends Component {
                 let colors_grid = [];
                 let data_uni = [];
                 for (let i = 0; i < colors.length; i++) {
-                    if (data_uni.indexOf(colors[i].fabriccolor_name) === -1) {
-                        colors_grid.push(<Option key={colors[i].fabriccolor_name}> {colors[i].fabriccolor_name}</Option>);
-                        data_uni.push(colors[i].fabriccolor_name);
+                    if(colors[i].fabriccolor_name){
+                        if (data_uni.indexOf(colors[i].fabriccolor_name) === -1) {
+                            colors_grid.push(<Option key={colors[i].fabriccolor_name}> {colors[i].fabriccolor_name}</Option>);
+                            data_uni.push(colors[i].fabriccolor_name);
+                            console.log(colors[i].fabriccolor_name);
+                        }
                     }
+                   
                 }
-                this.setState({ data_colors: data_uni });
+               // this.setState({ data_colors: data_uni });
 
             })
             .catch((err) => {
@@ -640,10 +644,13 @@ class Imports extends Component {
                 let children = []
                 let data_uni = []
                 for (let i = 0; i < data.length; i++) {
-                    if (data_uni.indexOf(data[i].fabrictype_name) === -1) {
-                        children.push(<Option key={data[i].fabrictype_name}> {data[i].fabrictype_name} </Option>);
-                        data_uni.push(data[i].fabrictype_name);
+                    if(data[i].fabrictype_name){
+                        if (data_uni.indexOf(data[i].fabrictype_name) === -1) {
+                            children.push(<Option key={data[i].fabrictype_name}> {data[i].fabrictype_name} </Option>);
+                            data_uni.push(data[i].fabrictype_name);
+                        }
                     }
+
                 }
                 this.setState({ data_types: data_uni });
                 this.loadFabricColors(data_uni);

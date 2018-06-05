@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-import { Select, AutoComplete, Input, InputNumber, Button, Form, Modal, Collapse, DatePicker } from 'antd';
+import { Select, Input, InputNumber, Button, Form, Modal, Collapse, DatePicker } from 'antd';
 
 import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
@@ -19,7 +19,7 @@ import './views.css';
 const { Editors } = require('react-data-grid-addons');
 const { AutoComplete: AutoCompleteEditor } = Editors;
 const { DateLongFormatter, DateShortFormatter } = DateFormatter;
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+//const { WeekPicker } = DatePicker;
 
 
 const FormItem = Form.Item;
@@ -30,8 +30,8 @@ const dateFormat = 'MM/DD/YYYY';
 
 const default_cols = [
     { key: 'orderid', name: 'ORDER #', resizable: true, editable: true, width: 100 },
-    { key: 'fabric_type', name: 'TYPE', resizable: true, editable: true, resizable: true },
-    { key: 'fabric_color', name: 'COLOR', resizable: true, editable: true, resizable: true },
+    { key: 'fabric_type', name: 'TYPE', resizable: true, editable: true },
+    { key: 'fabric_color', name: 'COLOR', resizable: true, editable: true },
     { key: 'met', name: 'MET', resizable: true, editable: true },
     { key: 'roll', name: 'ROLL', resizable: true, editable: true },
     { key: 'po_no', name: 'PO', resizable: true, editable: true },
@@ -165,7 +165,7 @@ class WarehouseExportForm extends Component {
     }
     render() {
 
-        const { visible, onCancel, onCreate, form } = this.props;
+        const { visible, onCancel, onCreate } = this.props;
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
@@ -173,9 +173,11 @@ class WarehouseExportForm extends Component {
             wrapperCol: { xs: { span: 24 }, sm: { span: 16 }, },
         };
 
+        /*
         const tailFormItemLayout = {
             wrapperCol: { xs: { span: 24, offset: 0, }, sm: { span: 16, offset: 8, }, },
         };
+        */
 
         return (
             <Modal
@@ -257,7 +259,7 @@ class WarehouseExport extends Component {
     handleSearch = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log('Received values of form: ', values);
+            //console.log('Received values of form: ', values);
             if (values.from_date) {
                 values.from_date = values.from_date.format('YYYY-MM-DD');
             }
@@ -313,7 +315,7 @@ class WarehouseExport extends Component {
 
     isDataRowValid = (row) => {
         let c_size = 0;
-        console.log(row);
+        //console.log(row);
         let check_keys = ["fabric_color", "fabric_type", "orderid", "met", "roll", "po_no", "line_no", "sku", "des", "qty", "yield", "fab_qty"];
         for (let i = 0; i < check_keys.length; i++) {
             if (row[check_keys[i]]) { c_size++; }
@@ -377,10 +379,9 @@ class WarehouseExport extends Component {
 
             if (values.id) {
                 console.log('call update');
-
                 axios.post(`api/fabric/export/update/${values.id}`, { data: data, detail: data_collect.data })
                     .then((res) => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         form.resetFields();
                         this.setState({ modalvisible: false });
                     })
@@ -390,10 +391,9 @@ class WarehouseExport extends Component {
                     });
             } else {
                 console.log('call add');
-
                 axios.post('api/fabric/export/add', { data: data, detail: data_collect.data })
                     .then((res) => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         //this.loadFabricWarehouses({});
                         form.resetFields();
                         this.setState({ modalvisible: false });
@@ -405,7 +405,7 @@ class WarehouseExport extends Component {
                             let msg = dt_error.error + '\n\n';
                             for (let k = 0; k < dt_error.data.length; k++) {
                                 let r = dt_error.data[k]
-                                msg += ' - '+r.fabric_type + ' - ' + r.fabric_color + ": met = " + r.met + ", roll = " + r.roll + "\n";
+                                msg += ' - ' + r.fabric_type + ' - ' + r.fabric_color + ": met = " + r.met + ", roll = " + r.roll + "\n";
                             }
                             alert(msg);
 
@@ -435,7 +435,7 @@ class WarehouseExport extends Component {
             let row_selected = this.state.warehouse_import_data[index];
             this.setState({ data_export_selected: row_selected });
         }
-        console.log('selected =>' + JSON.stringify(this.state.data_export_selected));
+        // console.log('selected =>' + JSON.stringify(this.state.data_export_selected));
     }
 
     render() {

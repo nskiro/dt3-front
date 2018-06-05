@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-import { Select, AutoComplete, Input, Button, Form, Modal, Collapse, DatePicker } from 'antd';
+import { Select,  Input, Button, Form, Modal, Collapse, DatePicker } from 'antd';
 
 import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
@@ -19,7 +19,7 @@ import './views.css';
 const { Editors } = require('react-data-grid-addons');
 const { AutoComplete: AutoCompleteEditor } = Editors;
 const { DateLongFormatter, DateShortFormatter } = DateFormatter;
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const {  RangePicker} = DatePicker;
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -151,17 +151,18 @@ class WarehouseImportForm extends Component {
     }
     render() {
 
-        const { visible, onCancel, onCreate, form } = this.props;
+        const { visible, onCancel, onCreate } = this.props;
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 8 }, },
             wrapperCol: { xs: { span: 24 }, sm: { span: 16 }, },
         };
-
+        /*
         const tailFormItemLayout = {
             wrapperCol: { xs: { span: 24, offset: 0, }, sm: { span: 16, offset: 8, }, },
         };
+        */
         return (
             <Modal
                 title={this.props.data.title}
@@ -434,7 +435,7 @@ class WarehouseImport extends Component {
     handleCreate = (e) => {
         const form = this.formRef.props.form;
         form.validateFields((err, values) => {
-            console.log(values);
+           // console.log(values);
             if (this.state.mod === 'view') {
                 form.resetFields();
                 this.setState({ modalvisible: false });
@@ -463,7 +464,7 @@ class WarehouseImport extends Component {
                 console.log('call update ->' + this.state.mod);
                 axios.post(`api/fabric/import/update/${values.id}`, { data: data, detail: data_collect.data })
                     .then((res) => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         if (!res.data.valid) {
                             alert('error' + JSON.stringify(res.data.error));
                             return;
@@ -479,7 +480,7 @@ class WarehouseImport extends Component {
                 console.log('call add');
                 axios.post('api/fabric/import/add', { data: data, detail: data_collect.data })
                     .then((res) => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         if (!res.data.valid) {
                             alert('error' + JSON.stringify(res.data.error));
                             return;

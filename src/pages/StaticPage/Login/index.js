@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FormGroup, InputGroup, FormControl, Alert, Row, Col } from 'react-bootstrap';
-import FontAwesome  from 'react-fontawesome';
+import FontAwesome from 'react-fontawesome';
 
 import * as actions from '../../../store/action/index';
 import EBLogo from '../../../assets/images/ergobaby-logo-square.png';
@@ -28,30 +28,31 @@ class Login extends Component {
         })
     }
 
-    render(){
+    render() {
 
         let authRedirect = null;
+        console.log(authRedirect);
         if (this.props.isAuthenticated) {
             authRedirect = <Redirect to='/' />
         }
-        
+
         let errMsg = null;
-        if(this.props.errorMsg !== null){
+        if (this.props.errorMsg !== null) {
             errMsg = <Alert bsStyle="danger"> {this.props.errorMsg} </Alert>;
         }
 
-        return(
+        return (
             <div className="login">
                 {authRedirect}
                 <Row>
                     <Col xs={6} sm={6}>
-                        <img src={DTLogo} alt="Ergo Baby" style={{maxHeight: '145px', display: 'block', margin: 'auto'}} />
+                        <img src={DTLogo} alt="Ergo Baby" style={{ maxHeight: '145px', display: 'block', margin: 'auto' }} />
                     </Col>
                     <Col xs={6} sm={6}>
-                        <img src={EBLogo} alt="Ergo Baby" style={{maxHeight: '145px', display: 'block', margin: 'auto'}} />
+                        <img src={EBLogo} alt="Ergo Baby" style={{ maxHeight: '145px', display: 'block', margin: 'auto' }} />
                     </Col>
                 </Row>
-                
+
                 <form id="loginForm" className="login-form" onSubmit={this.handleFormSubmit}>
                     {errMsg}
                     <FormGroup>
@@ -59,7 +60,7 @@ class Login extends Component {
                             <InputGroup.Addon>
                                 <FontAwesome name='user' />
                             </InputGroup.Addon>
-                            <FormControl name="username" type="text" placeholder="Username" style={{height: "40px"}} onChange={this.handleInputChange} />
+                            <FormControl name="username" type="text" placeholder="Username" style={{ height: "40px" }} onChange={this.handleInputChange} />
                         </InputGroup>
                     </FormGroup>
                     <FormGroup>
@@ -67,7 +68,7 @@ class Login extends Component {
                             <InputGroup.Addon>
                                 <FontAwesome name='key' />
                             </InputGroup.Addon>
-                            <FormControl name="password" type="password" placeholder="Password" style={{height: "40px"}} onChange={this.handleInputChange} />
+                            <FormControl name="password" type="password" placeholder="Password" style={{ height: "40px" }} onChange={this.handleInputChange} />
                         </InputGroup>
                     </FormGroup>
                     <button type='submit' id="btnLogin" name="btnLogin" className="btn btn-primary fa-lg" tabIndex="3">
@@ -89,7 +90,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: ( username, password ) => dispatch(actions.auth( username, password))
+        onAuth: (username, password) => dispatch(actions.auth(username, password))
     };
 };
-export default connect( mapStateToProps, mapDispatchToProps )(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

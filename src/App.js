@@ -35,7 +35,7 @@ class App extends Component {
           <Row className="show-grid" style={{padding: "15px", background: "#f8f8f8"}}>
             <Col sm={12} md={12}>
               <Switch>
-              <Route path='/fabricWarehouse' component={WarehousePage} exact />
+                <Route path='/fabricWarehouse' component={WarehousePage} exact />
                 <Route path='/logout' component={Logout} exact />
                 <Route path='/404' component={InProgress} exact />
                 <Route path='/' component={HomePage} exact />

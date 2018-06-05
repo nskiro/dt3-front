@@ -1,9 +1,12 @@
 import jwt from 'jsonwebtoken';
 
+const secretKey = 'supersecret';
+
 const commonConfig = {
     theme: 'bootstrap',
+    baseURL: window.location.protocol + '//' + window.location.hostname + ':5000/',
     verifyToken: (token) => {
-        return jwt.verify(token, 'supersecret', function(err, decoded) {
+        return jwt.verify(token, secretKey, function(err, decoded) {
             if(err) {
                 console.log(err);
                 return false;
@@ -11,9 +14,16 @@ const commonConfig = {
             return decoded;
         });
     },
-    baseURL: window.location.protocol + '//' + window.location.hostname + ':5000/'
-    //baseURL: 'http://vps159788.vps.ovh.ca:5000/'
-    //baseURL: 'http://localhost:5000/'
+    getUserInfoByToken: (token) => {
+        return jwt.verify(token, secretKey, function(err, decoded) {
+            if(err) {
+                console.log(err);
+                return false;
+            }
+            console.log(decoded);
+            return decoded._doc;
+        });
+    }
 }
 
 export default commonConfig;

@@ -8,11 +8,10 @@ export const authStart = () => {
     }
 }
 
-export const authSuccess = (token,dept) => {
+export const authSuccess = (token) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        token: token,
-        dept: dept
+        token: token
     };
 };
 
@@ -44,9 +43,8 @@ export const auth = (authData) => {
             .then(res => {
                 if(res.data){
                     localStorage.setItem('token',res.data.token);
-                    localStorage.setItem('dept',res.data.dept);
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-                    dispatch(authSuccess(res.data.token,res.data.dept));
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
+                    dispatch(authSuccess(res.data.token));
                     dispatch(checkAuthTimeout());
                 }
                 else{

@@ -17,7 +17,7 @@ import './views.css';
 
 const FormItem = Form.Item;
 const Panel = Collapse.Panel;
-const { DateLongFormatter, DateShortFormatter } = DateFormatter;
+const { DateLongFormatter } = DateFormatter;
 
 class FabricColorForm extends Component {
     constructor(props) {
@@ -84,7 +84,7 @@ class WarehouseFabricColor extends Component {
     handleSearch = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log('Received values of form: ', values);
+           // console.log('Received values of form: ', values);
             if (values.fabriccolor_name) {
                 this.loadFabricColors(values);
             } else {
@@ -110,7 +110,7 @@ class WarehouseFabricColor extends Component {
     //Modal
     showModal = (e) => {
         if (e) {
-            console.log(e.target.value);
+           // console.log(e.target.value);
             let mod = e.target.value;
             if (mod === 'new') {
                 this.setState({
@@ -172,17 +172,12 @@ class WarehouseFabricColor extends Component {
                 fabriccolor_code: values.fabriccolor_code,
                 fabriccolor_name:  values.fabriccolor_code,
             }
-
-           
-
-            console.log(data);
-
-
+           // console.log(data);
             if (values.id) {
                 console.log('call update');
                 axios.post(`api/fabric/color/update/${values.id}`, data)
                     .then((res) => {
-                        console.log(res.data);
+                        //console.log(res.data);
                         this.loadFabricColors({});
                     })
                     .catch((err) => {
@@ -192,7 +187,7 @@ class WarehouseFabricColor extends Component {
                 console.log('call add');
                 axios.post('api/fabric/color/add', data)
                     .then((res) => {
-                        console.log(res.data);
+                       // console.log(res.data);
                         this.loadFabricColors({});
                     })
                     .catch((err) => {

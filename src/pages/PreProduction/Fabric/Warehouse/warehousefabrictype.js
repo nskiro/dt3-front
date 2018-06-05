@@ -17,7 +17,7 @@ import './views.css';
 
 const FormItem = Form.Item;
 const Panel = Collapse.Panel;
-const { DateLongFormatter, DateShortFormatter } = DateFormatter;
+const { DateLongFormatter } = DateFormatter;
 
 class FabricTypeForm extends Component {
     constructor(props) {
@@ -160,8 +160,8 @@ class WarehouseFabricType extends Component {
         const form = this.formRef.props.form;
 
         form.validateFields((err, values) => {
-            console.log(values);
-            console.log(err);
+           // console.log(values);
+           // console.log(err);
             if (err) {
                 return;
             }
@@ -172,10 +172,7 @@ class WarehouseFabricType extends Component {
                 fabrictype_code: values.fabrictype_name,
                 fabrictype_name: values.fabrictype_name,
             }
-
-            // console.log(values);
-            console.log(data);
-
+           // console.log(data);
             if (values.id) {
                 console.log('call update');
                 axios.post(`api/fabric/type/update/${values.id}`, data)
